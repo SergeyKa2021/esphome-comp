@@ -1,4 +1,4 @@
-#include "component.hpp"
+#include "ibutton.h"
 #include "esphome/core/log.h"
 
 namespace esphome {
