@@ -1,10 +1,10 @@
-#include "component.hpp"
+#include "ibutton.h"
 #include "esphome/core/log.h"
 
 namespace esphome {
-namespace my_onewire_component {
+namespace ibutton {
 
-static const char* TAG = "my.onewire.component";
+static const char* TAG = "ibutton.onewire.component";
 
 void MyOneWireSensor::setup() {
   ESP_LOGCONFIG(TAG, "Starting MyOneWireSensor");
@@ -29,5 +29,5 @@ void MyOneWireSensor::loop() {
   }
 }
 
-}  // namespace my_onewire_component
+}  // namespace ibutton
 }  // namespace esphome
