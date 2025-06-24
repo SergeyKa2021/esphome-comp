@@ -2,7 +2,7 @@
 #include "esphome/core/log.h"
 
 namespace esphome {
-namespace my_onewire_component {
+namespace ibutton {
 
 static const char* TAG = "my.onewire.component";
 
