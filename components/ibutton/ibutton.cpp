@@ -4,7 +4,7 @@
 namespace esphome {
 namespace ibutton {
 
-static const char* TAG = "ibutton.onewire.component";
+static const char* TAG = "ibutton.binary_sensor";
 
 void MyOneWireSensor::setup() {
   ESP_LOGCONFIG(TAG, "Starting MyOneWireSensor");
