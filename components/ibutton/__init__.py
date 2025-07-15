@@ -29,3 +29,4 @@ async def to_code(config):
     if "write_button" in config:
         button_var = await cg.get_variable(config["write_button"])
         cg.add(var.set_write_button(button_var))
+        
