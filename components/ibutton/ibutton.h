@@ -11,15 +11,8 @@ class IButtonComponent : public Component {
   void set_key_id(uint64_t id) { key_id_ = id; }
   void set_write_button(button::Button *button) { write_button_ = button; }
 
-  void setup() override {
-    one_wire_ = new OneWire(pin_);
-    pinMode(pin_, INPUT_PULLUP);
-    if (write_button_ != nullptr) {
-      write_button_->add_on_press_callback([this]() { this->write_stored_key(); });
-    }
-    ESP_LOGI("ibutton", "Initialized on pin %d", pin_);
-  }
-
+  void setup() override;
+  
  protected:
   uint8_t pin_;
   uint64_t key_id_{0};
