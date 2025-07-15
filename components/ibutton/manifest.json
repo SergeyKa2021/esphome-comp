@@ -1,7 +1,0 @@
-{
-  "domain": "ibutton",
-  "name": "My One Wire Component",
-  "version": "1.0.0",
-  "type": "sensor",
-  "dependencies": ["one_wire"]
-}
