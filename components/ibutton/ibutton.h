@@ -5,6 +5,8 @@
 namespace esphome {
 namespace ibutton {
 
+static const char *const TAG = "ibutton";
+
 enum KeyType {
   KEY_TYPE_UNKNOWN = 0,
   KEY_TYPE_RW1990_1,  // Однократно программируемый
@@ -164,6 +166,18 @@ class IButton : public Component {
     }
   }
 };
+
+void IButton::setup() {
+  one_wire_ = new OneWire(pin_);
+  pinMode(pin_, INPUT_PULLUP);
+  ESP_LOGI(TAG, "iButton initialized on pin %d", pin_);
+}
+
+// Добавляем схему конфигурации
+auto CONFIG_SCHEMA = esphome::config_schema::Schema({
+    {"pin", esphome::config_schema::Required<int>()},
+    {"key_id", esphome::config_schema::Optional<uint64_t>()}
+});
 
 } // namespace ibutton
 } // namespace esphome
