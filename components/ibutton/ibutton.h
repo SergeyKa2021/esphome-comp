@@ -23,7 +23,7 @@ class IButton : public Component {
     one_wire_ = new OneWire(pin_);
     pinMode(pin_, INPUT_PULLUP);
     
-    if (write_button_ != nullptr) {
+    if (write_button_) {
       write_button_->add_on_press_callback([this]() { this->write_stored_key(); });
     }
     
@@ -105,10 +105,9 @@ class IButton : public Component {
 
  protected:
   uint8_t pin_;
-  uint64_t key_id_ = 0;
+  uint64_t key_id_{0};
   OneWire *one_wire_;
-  button::Button *write_button_ = nullptr;
-  std::string last_error_;
+  button::Button *write_button_{nullptr};
 
   bool is_blank_key(const uint8_t addr[8]) {
     for (uint8_t i = 0; i < 8; i++) {
