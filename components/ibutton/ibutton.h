@@ -23,7 +23,7 @@ class IButton : public Component {
     one_wire_ = new OneWire(pin_);
     pinMode(pin_, INPUT_PULLUP);
     
-    if (write_button_) {
+    if (write_button_ != nullptr) {
       write_button_->add_on_press_callback([this]() { this->write_stored_key(); });
     }
     
@@ -104,7 +104,6 @@ class IButton : public Component {
   const std::string& get_last_error() const { return last_error_; }
 
  protected:
-  static constexpr const char* TAG = "ibutton";
   uint8_t pin_;
   uint64_t key_id_ = 0;
   OneWire *one_wire_;
@@ -166,18 +165,6 @@ class IButton : public Component {
     }
   }
 };
-
-void IButton::setup() {
-  one_wire_ = new OneWire(pin_);
-  pinMode(pin_, INPUT_PULLUP);
-  ESP_LOGI(TAG, "iButton initialized on pin %d", pin_);
-}
-
-// Добавляем схему конфигурации
-auto CONFIG_SCHEMA = esphome::config_schema::Schema({
-    {"pin", esphome::config_schema::Required<int>()},
-    {"key_id", esphome::config_schema::Optional<uint64_t>()}
-});
 
 } // namespace ibutton
 } // namespace esphome
