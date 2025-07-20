@@ -14,11 +14,11 @@ class DallasKeyReader : public PollingComponent {
   void dump_config() override;
   float get_setup_priority() const override { return setup_priority::DATA; }
 
-  void set_dallas(dallas::DallasComponent *dallas) { dallas_ = dallas; }
+  void set_bus(dallas::DallasDevice *bus) { bus_ = bus; }
   void set_key_sensor(text_sensor::TextSensor *sensor) { key_sensor_ = sensor; }
 
  protected:
-  dallas::DallasComponent *dallas_;
+  dallas::DallasDevice *bus_;
   text_sensor::TextSensor *key_sensor_;
   uint64_t last_key_{0};
 };
