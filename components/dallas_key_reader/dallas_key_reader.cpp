@@ -11,7 +11,7 @@ void DallasKeyReader::setup() {
 }
 
 void DallasKeyReader::update() {
-  auto *wire = this->dallas_->get_one_wire();
+  auto *wire = this->bus_->get_one_wire();
   if (wire == nullptr) {
     ESP_LOGE(TAG, "1-Wire bus not available");
     return;
