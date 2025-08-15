@@ -5,7 +5,7 @@ from esphome.const import CONF_ID
 from esphome.components.one_wire import OneWireBus
 
 CODEOWNERS = ["@SergeyKa2021"]
-#DEPENDENCIES = ["one_wire", "text_sensor"]
+DEPENDENCIES = ["one_wire", "text_sensor"]
 
 dallas_key_reader_ns = cg.esphome_ns.namespace("dallas_key_reader")
 DallasKeyReader = dallas_key_reader_ns.class_("DallasKeyReader", cg.PollingComponent)
