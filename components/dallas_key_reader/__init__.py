@@ -1,6 +1,6 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import text_sensor
+from esphome.components.text_sensor import TextSensor
 from esphome.const import CONF_ID
 from esphome.components.one_wire import OneWireDevice
 
@@ -23,5 +23,5 @@ async def to_code(config):
     one_wire = await cg.get_variable(config["one_wire_id"])
     cg.add(var.set_one_wire(one_wire))
     
-    key_sensor = await text_sensor.new_text_sensor(config["key"])
+    key_sensor = await TextSensor.new_text_sensor(config["key"])
     cg.add(var.set_key_sensor(key_sensor))
