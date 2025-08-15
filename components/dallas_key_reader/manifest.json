@@ -1,0 +1,9 @@
+{
+  "name": "Dallas Key Reader",
+  "version": "1.0.0",
+  "codeowners": ["@SergeyKa2021"],
+  "requirements": [],
+  "dependencies": ["one_wire", "text_sensor"],
+  "documentation": "https://github.com/SergeyKa2021/esphome-comp",
+  "iot_class": "local_polling"
+}
