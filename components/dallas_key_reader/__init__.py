@@ -13,7 +13,7 @@ DallasKeyReader = dallas_key_reader_ns.class_("DallasKeyReader", cg.PollingCompo
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(DallasKeyReader),
     cv.Required("one_wire_id"): cv.use_id(OneWireDevice),
-    cv.Required("key"): text_sensor.text_sensor_schema(),
+    cv.Required("key"): TextSensor.text_sensor_schema(),
 }).extend(cv.polling_component_schema("60s"))
 
 async def to_code(config):
