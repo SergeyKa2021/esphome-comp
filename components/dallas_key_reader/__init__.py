@@ -2,7 +2,7 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import text_sensor
 from esphome.const import CONF_ID
-from esphome.components.one_wire import OneWireComponent
+from esphome.components.one_wire import OneWireDevice
 
 CODEOWNERS = ["@SergeyKa2021"]
 DEPENDENCIES = ["one_wire", "text_sensor"]
@@ -12,7 +12,7 @@ DallasKeyReader = dallas_key_reader_ns.class_("DallasKeyReader", cg.PollingCompo
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(DallasKeyReader),
-    cv.Required("one_wire_id"): cv.use_id(OneWireComponent),
+    cv.Required("one_wire_id"): cv.use_id(OneWireDevice),
     cv.Required("key"): text_sensor.text_sensor_schema(),
 }).extend(cv.polling_component_schema("60s"))
 
