@@ -4,7 +4,7 @@ from esphome.components import text_sensor
 from esphome.const import CONF_ID
 from esphome.components.one_wire.one_wire import OneWire
 
-CODEOWNERS = ["@your-github-username"]
+CODEOWNERS = ["@SergeyKa2021"]
 DEPENDENCIES = ["one_wire", "text_sensor"]
 
 dallas_key_reader_ns = cg.esphome_ns.namespace("dallas_key_reader")
