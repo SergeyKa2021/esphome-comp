@@ -7,7 +7,7 @@ from esphome.components.one_wire.one_wire import OneWire
 CODEOWNERS = ["@SergeyKa2021"]
 DEPENDENCIES = ["one_wire", "text_sensor"]
 
-dallas_key_reader_ns = cg.esphome_ns.namespace("dallas_key_reader")
+dallas_key_reader_ns = cg.esphome_ns.namespace("dallas_key_reader")  # Исправлено!
 DallasKeyReader = dallas_key_reader_ns.class_(
     "DallasKeyReader", cg.PollingComponent
 )
