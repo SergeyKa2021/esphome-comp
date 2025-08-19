@@ -8,8 +8,8 @@ namespace ds1990_key {
 static const char *const TAG = "ds1990_key";
 
 void DS1990KeySensor::setup() {
-  // Инициализация шины 1-Wire
-  this->one_wire_->begin();
+  // Инициализация не требуется, OneWireBus уже инициализирован
+  ESP_LOGD(TAG, "DS1990 Key sensor setup complete");
 }
 
 void DS1990KeySensor::dump_config() {
@@ -32,6 +32,7 @@ void DS1990KeySensor::update() {
   } else {
     // Ошибка чтения - публикуем пустую строку
     this->publish_state("");
+    ESP_LOGD(TAG, "Failed to read key");
   }
 }
 
@@ -40,7 +41,7 @@ bool DS1990KeySensor::read_key_data_() {
   
   // Используем публичный метод reset вместо защищенного reset_
   if (!this->one_wire_->reset_()) {
-    ESP_LOGD(TAG, "No devices found");
+    ESP_LOGD(TAG, "No devices found on 1-Wire bus");
     return false;
   }
 
@@ -55,7 +56,7 @@ bool DS1990KeySensor::read_key_data_() {
   // Проверка CRC
   uint8_t crc = esphome::crc8(rom_code, 7);
   if (crc != rom_code[7]) {
-    ESP_LOGD(TAG, "CRC check failed: %02X != %02X", crc, rom_code[7]);
+    ESP_LOGD(TAG, "CRC check failed: calculated %02X, received %02X", crc, rom_code[7]);
     return false;
   }
 
@@ -65,13 +66,13 @@ bool DS1990KeySensor::read_key_data_() {
     return false;
   }
 
-  // Формирование 64-битного адреса
+  // Формирование 64-битного адреса (little-endian to big-endian)
   this->address_ = 0;
-  for (int i = 7; i >= 0; i--) {
-    this->address_ = (this->address_ << 8) | rom_code[i];
+  for (int i = 0; i < 8; i++) {
+    this->address_ |= (static_cast<uint64_t>(rom_code[i]) << (i * 8));
   }
 
-  ESP_LOGD(TAG, "Key found: %016llX", this->address_);
+  ESP_LOGD(TAG, "DS1990 key found: %016llX", this->address_);
   return true;
 }
 
