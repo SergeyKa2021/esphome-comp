@@ -2,7 +2,7 @@
 
 #include "esphome/core/component.h"
 #include "esphome/components/one_wire/one_wire.h"
-#include "esphome/components/sensor/text_sensor.h"
+#include "esphome/components/text_sensor/text_sensor.h"
 
 namespace esphome {
 namespace ds1990_key {
