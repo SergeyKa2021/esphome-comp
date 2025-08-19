@@ -7,10 +7,10 @@
 namespace esphome {
 namespace ds1990_key {
 
-class DS1990KeySensor : public Component, public sensor::Sensor {
+class DS1990KeySensor : public Component, public text_sensor::TextSensor {
  public:
   void set_address(uint64_t address);
-  void set_one_wire(one_wire::OneWire *one_wire);
+  void set_one_wire(one_wire::OneWireBus *one_wire);
   
   void setup() override;
   void dump_config() override;
