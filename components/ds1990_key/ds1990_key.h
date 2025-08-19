@@ -19,7 +19,7 @@ class DS1990KeySensor : public Component, public text_sensor::TextSensor {
   void update() override;
 
  protected:
-  one_wire::OneWire *one_wire_;
+  one_wire::OneWireBus *one_wire_;
   uint64_t address_{0};
   bool found_{false};
   
