@@ -7,7 +7,7 @@ DEPENDENCIES = ['one_wire']
 AUTO_LOAD = ['text_sensor']
 
 ds1990_key_ns = cg.esphome_ns.namespace('ds1990_key')
-DS1990KeyTextSensor = ds1990_key_ns.class_('DS1990KeyTextSensor', text_sensor.TextSensor, cg.Component)
+DS1990KeySensor = ds1990_key_ns.class_('DS1990KeySensor', text_sensor.TextSensor, cg.Component)
 
 CONFIG_SCHEMA = text_sensor.text_sensor_schema().extend({
     cv.GenerateID(): cv.declare_id(DS1990KeyTextSensor),
