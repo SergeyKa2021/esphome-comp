@@ -41,14 +41,14 @@ void DS1990KeySensor::loop() {
 bool DS1990KeySensor::read_key_data_() {
   uint8_t rom_code[8];
   
-  // Сброс шины и проверка наличия устройств
-  if (!this->one_wire_->reset()) {
+  // Правильный способ сброса шины 1-Wire
+  this->one_wire_->reset_search();
+  if (!this->one_wire_->search(rom_code)) {
     ESP_LOGD(TAG, "No devices found on 1-Wire bus");
+    this->one_wire_->reset_search();
     return false;
   }
 
-  // Пропускаем команду выбора устройства (SKIP_ROM = 0xCC)
-  this->one_wire_->write8(0xCC);
   // Отправляем команду чтения ROM
   this->one_wire_->write8(READ_ROM);
 
@@ -77,6 +77,7 @@ bool DS1990KeySensor::read_key_data_() {
   }
 
   ESP_LOGD(TAG, "DS1990 key found: %016llX", this->address_);
+  this->one_wire_->reset_search();
   return true;
 }
 
