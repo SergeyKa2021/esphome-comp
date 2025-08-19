@@ -12,12 +12,13 @@ DS1990KeyTextSensor = ds1990_key_ns.class_('DS1990KeyTextSensor', text_sensor.Te
 CONFIG_SCHEMA = text_sensor.text_sensor_schema().extend({
     cv.GenerateID(): cv.declare_id(DS1990KeyTextSensor),
     cv.Required(CONF_ADDRESS): cv.hex_uint64_t,
-    cv.Optional(one_wire.CONF_ONE_WIRE_ID): cv.use_id(one_wire.OneWire),
+    cv.Optional(one_wire.CONF_ONE_WIRE_ID): cv.use_id(one_wire.OneWireBus),
 })
 
 async def to_code(config):
-    var = await text_sensor.new_text_sensor(config)
+    var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
+    await text_sensor.register_text_sensor(var, config)
     
     cg.add(var.set_address(config[CONF_ADDRESS]))
     
