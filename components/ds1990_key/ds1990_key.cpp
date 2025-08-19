@@ -9,7 +9,7 @@ static const char *const TAG = "ds1990_key";
 
 void DS1990KeySensor::set_address(uint64_t address) { this->address_ = address; }
 
-void DS1990KeySensor::set_one_wire(one_wire::OneWire *one_wire) { this->one_wire_ = one_wire; }
+void DS1990KeySensor::set_one_wire(one_wire::OneWireBus *one_wire) { this->one_wire_ = one_wire; }
 
 float DS1990KeySensor::get_setup_priority() const { return setup_priority::DATA; }
 
