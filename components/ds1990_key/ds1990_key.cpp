@@ -14,24 +14,20 @@ void DS1990KeySensor::setup() {
 
 void DS1990KeySensor::dump_config() {
   LOG_TEXT_SENSOR("", "DS1990A/R Key", this);
-  // Убрали LOG_UPDATE_INTERVAL так как нет polling
   ESP_LOGCONFIG(TAG, "  Reading mode: On-demand/loop");
 }
 
 void DS1990KeySensor::loop() {
-  // Читаем каждые 5 секунд (или настройте нужный интервал)
   uint32_t now = millis();
   if (now - this->last_read_ > 5000) {
     this->last_read_ = now;
     
     if (this->read_key_data_()) {
-      // Успешное чтение - публикуем адрес в hex формате
       char buffer[17];
       snprintf(buffer, sizeof(buffer), "%016llX", this->address_);
       this->publish_state(buffer);
       ESP_LOGD(TAG, "Key read successfully: %s", buffer);
     } else {
-      // Ошибка чтения - публикуем пустую строку
       this->publish_state("");
       ESP_LOGD(TAG, "Failed to read key");
     }
@@ -41,23 +37,23 @@ void DS1990KeySensor::loop() {
 bool DS1990KeySensor::read_key_data_() {
   uint8_t rom_code[8];
   
-  // Правильный способ сброса шины 1-Wire
-  this->one_wire_->reset_search();
-  if (!this->one_wire_->search(rom_code)) {
+  // Используем публичные методы
+  if (!this->one_wire_->public_reset()) {
     ESP_LOGD(TAG, "No devices found on 1-Wire bus");
-    this->one_wire_->reset_search();
     return false;
   }
 
+  // Пропускаем выбор устройства
+  this->one_wire_->public_skip();
   // Отправляем команду чтения ROM
-  this->one_wire_->write8(READ_ROM);
+  this->one_wire_->public_write8(READ_ROM);
 
   // Чтение 8 байт ROM-кода
   for (int i = 0; i < 8; i++) {
-    rom_code[i] = this->one_wire_->read8();
+    rom_code[i] = this->one_wire_->public_read8();
   }
 
-  // Проверка CRC (первые 7 байт)
+  // Проверка CRC
   uint8_t crc = esphome::crc8(rom_code, 7);
   if (crc != rom_code[7]) {
     ESP_LOGD(TAG, "CRC check failed: calculated %02X, received %02X", crc, rom_code[7]);
@@ -70,14 +66,13 @@ bool DS1990KeySensor::read_key_data_() {
     return false;
   }
 
-  // Формирование 64-битного адреса (little-endian to big-endian)
+  // Формирование 64-битного адреса
   this->address_ = 0;
   for (int i = 0; i < 8; i++) {
     this->address_ |= (static_cast<uint64_t>(rom_code[i]) << (i * 8));
   }
 
   ESP_LOGD(TAG, "DS1990 key found: %016llX", this->address_);
-  this->one_wire_->reset_search();
   return true;
 }
 
