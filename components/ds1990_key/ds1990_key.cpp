@@ -14,12 +14,12 @@ void DS1990KeySensor::setup() {
 
 void DS1990KeySensor::dump_config() {
   LOG_TEXT_SENSOR("", "DS1990A/R Key", this);
-  if (this->update_interval() == SCHEDULER_DONT_RUN) {
+  if (this->update_interval_() == SCHEDULER_DONT_RUN) {
     ESP_LOGCONFIG(TAG, "  Update Interval: DISABLED");
-  } else if (this->update_interval() < 100) {
-    ESP_LOGCONFIG(TAG, "  Update Interval: %.3fs", this->update_interval() / 1000.0f);
+  } else if (this->update_interval_() < 100) {
+    ESP_LOGCONFIG(TAG, "  Update Interval: %.3fs", this->update_interval_() / 1000.0f);
   } else {
-    ESP_LOGCONFIG(TAG, "  Update Interval: %.1fs", this->update_interval() / 1000.0f);
+    ESP_LOGCONFIG(TAG, "  Update Interval: %.1fs", this->update_interval_() / 1000.0f);
   }
 }
 
@@ -39,7 +39,7 @@ bool DS1990KeySensor::read_key_data_() {
   uint8_t rom_code[8];
   
   // Используем публичный метод reset вместо защищенного reset_
-  if (!this->one_wire_->reset()) {
+  if (!this->one_wire_->reset_()) {
     ESP_LOGD(TAG, "No devices found");
     return false;
   }
