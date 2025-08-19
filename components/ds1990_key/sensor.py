@@ -3,6 +3,9 @@ import esphome.config_validation as cv
 from esphome.components import sensor, one_wire
 from esphome.const import CONF_ADDRESS, CONF_ID
 
+DEPENDENCIES = ['one_wire']
+AUTO_LOAD = ['sensor']
+
 ds1990_key_ns = cg.esphome_ns.namespace('ds1990_key')
 DS1990KeySensor = ds1990_key_ns.class_('DS1990KeySensor', sensor.Sensor, cg.Component)
 
@@ -22,6 +25,6 @@ async def to_code(config):
     
     cg.add(var.set_address(config[CONF_ADDRESS]))
     
-    if one_wire_id := config.get(one_wire.CONF_ONE_WIRE_ID):
-        one_wire_bus = await cg.get_variable(one_wire_id)
+    if one_wire.CONF_ONE_WIRE_ID in config:
+        one_wire_bus = await cg.get_variable(config[one_wire.CONF_ONE_WIRE_ID])
         cg.add(var.set_one_wire(one_wire_bus))
