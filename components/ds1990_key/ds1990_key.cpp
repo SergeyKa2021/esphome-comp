@@ -1,5 +1,6 @@
 #include "ds1990_key.h"
 #include "esphome/core/log.h"
+#include "esphome/components/one_wire/one_wire.h"
 
 namespace esphome {
 namespace ds1990_key {
