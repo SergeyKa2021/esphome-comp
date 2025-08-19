@@ -12,13 +12,15 @@ static const uint8_t DS1990A_FAMILY_CODE = 0x01;
 static const uint8_t DS1990R_FAMILY_CODE = 0x81;
 static const uint8_t READ_ROM = 0x33;
 
-class DS1990KeySensor : public text_sensor::TextSensor, public PollingComponent {
+class DS1990KeySensor : public text_sensor::TextSensor, public Component {
  public:
   void set_one_wire(one_wire::OneWireBus *one_wire) { one_wire_ = one_wire; }
   
   void setup() override;
   void dump_config() override;
-  void update() override;
+  
+  // Убрали update() так как теперь это не PollingComponent
+  void loop() override;  // Будем читать в loop()
   
   float get_setup_priority() const override { return setup_priority::DATA; }
 
@@ -27,6 +29,7 @@ class DS1990KeySensor : public text_sensor::TextSensor, public PollingComponent 
   
   one_wire::OneWireBus *one_wire_;
   uint64_t address_{0};
+  uint32_t last_read_{0};
 };
 
 }  // namespace ds1990_key
