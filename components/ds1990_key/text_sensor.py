@@ -12,7 +12,6 @@ DS1990KeySensor = ds1990_key_ns.class_('DS1990KeySensor', text_sensor.TextSensor
 CONFIG_SCHEMA = text_sensor.text_sensor_schema().extend({
     cv.GenerateID(): cv.declare_id(DS1990KeySensor),
     cv.Required(CONF_ADDRESS): cv.hex_uint64_t,
-    cv.Optional(one_wire.CONF_ONE_WIRE_ID): cv.use_id(one_wire.OneWireDevice),
 })
 
 async def to_code(config):
