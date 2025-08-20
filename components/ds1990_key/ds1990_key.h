@@ -25,7 +25,7 @@ class DS1990OneWire : public one_wire::OneWireDevice {
   void public_skip() { this->write8(0xCC); } // SKIP_ROM
 };
 
-class DS1990KeySensor : public text_sensor::TextSensor, public Component {
+class DS1990KeySensor : public text_sensor::TextSensor, public PollingComponent {
  public:
   void set_one_wire(DS1990OneWire *one_wire) { one_wire_ = one_wire; }
   
