@@ -12,7 +12,7 @@ void DS1990KeySensor::setup() {
 }
 
 void DS1990KeySensor::dump_config() {
-  LOG_TEXT_SENSOR("", "DS1990A/R Key");
+  LOG_TEXT_SENSOR("", "DS1990A/R Key", this);
   ESP_LOGCONFIG(TAG, "  Reading mode: On-demand/loop");
   LOG_UPDATE_INTERVAL(this);
   LOG_ONE_WIRE_DEVICE(this);
