@@ -5,7 +5,7 @@
 namespace esphome {
 namespace ds1990_key {
 
-static const char *const TAG = "ds1990_key";
+static const char *const TAG = "ds1990_key.text_sensor";
 
 void DS1990KeySensor::setup() {
   ESP_LOGD(TAG, "DS1990 Key sensor setup complete");
