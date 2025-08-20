@@ -38,19 +38,19 @@ bool DS1990KeySensor::read_key_data_() {
   uint8_t rom_code[8];
   
   // Используем публичные методы
-  if (!this->one_wire_->public_reset()) {
+  if (!this->one_wire_->reset()) {
     ESP_LOGD(TAG, "No devices found on 1-Wire bus");
     return false;
   }
 
   // Пропускаем выбор устройства
-  this->one_wire_->public_skip();
+  this->one_wire_->skip();
   // Отправляем команду чтения ROM
-  this->one_wire_->public_write8(READ_ROM);
+  this->one_wire_->write8(READ_ROM);
 
   // Чтение 8 байт ROM-кода
   for (int i = 0; i < 8; i++) {
-    rom_code[i] = this->one_wire_->public_read8();
+    rom_code[i] = this->one_wire_->read8();
   }
 
   // Проверка CRC
