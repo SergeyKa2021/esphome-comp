@@ -17,7 +17,7 @@ void DS1990KeySensor::dump_config() {
   ESP_LOGCONFIG(TAG, "  Reading mode: On-demand/loop");
 }
 
-void DS1990KeySensor::loop() {
+void DS1990KeySensor::update() {
   uint32_t now = millis();
   if (now - this->last_read_ > 5000) {
     this->last_read_ = now;
