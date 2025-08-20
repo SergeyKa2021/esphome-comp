@@ -50,7 +50,7 @@ bool DS1990KeySensor::read_key_data_() {
   }
   
   // Проверка присутствия устройства
-  if (!this->bus_->reset_()) {
+  if (!this->bus_->reset()) {
     ESP_LOGD(TAG, "No device present on bus");
     return false;
   }
