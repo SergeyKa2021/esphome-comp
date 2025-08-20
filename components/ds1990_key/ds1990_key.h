@@ -12,10 +12,10 @@ static const uint8_t DS1990A_FAMILY_CODE = 0x01;
 static const uint8_t DS1990R_FAMILY_CODE = 0x81;
 static const uint8_t READ_ROM = 0x33;
 
-// Наследник OneWireBus с публичными методами
-class DS1990OneWire : public one_wire::OneWireBus {
+// Наследник OneWireDevice с публичными методами
+class DS1990OneWire : public one_wire::OneWireDevice {
  public:
-  using one_wire::OneWireBus::OneWireBus;
+  using one_wire::OneWireDevice::OneWireDevice;
   
   bool public_reset() { return this->reset_(); }
   void public_reset_search() { this->reset_search(); }
