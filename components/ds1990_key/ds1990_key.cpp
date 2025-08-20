@@ -34,9 +34,8 @@ void DS1990KeySensor::update() {
 bool DS1990KeySensor::read_key_data_() {
   uint8_t rom_code[8];
 
-  if (!this->bus_->reset_()) {
-    return;
-  }
+  this->bus_->reset_();
+  
   // Пропускаем выбор устройства
   // this->skip();
   // Отправляем команду чтения ROM
