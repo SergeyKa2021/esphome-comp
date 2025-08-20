@@ -63,7 +63,7 @@ bool DS1990KeySensor::read_key_data_() {
   this->bus_->write8(READ_ROM);
 
   // Чтение 8 байт ROM-кода
-  uint8_t rom_code[8];
+  public uint8_t rom_code[8];
   for (int i = 0; i < 8; i++) {
     rom_code[i] = this->bus_->read8();
   }
