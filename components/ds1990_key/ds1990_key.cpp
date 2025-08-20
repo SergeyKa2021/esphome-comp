@@ -15,6 +15,7 @@ void DS1990KeySensor::dump_config() {
   LOG_TEXT_SENSOR("", "DS1990A/R Key");
   ESP_LOGCONFIG(TAG, "  Reading mode: On-demand/loop");
   LOG_UPDATE_INTERVAL(this);
+  LOG_ONE_WIRE_DEVICE(this);
 }
 
 void DS1990KeySensor::update() {
@@ -39,9 +40,9 @@ bool DS1990KeySensor::read_key_data_() {
   }
 
   // Пропускаем выбор устройства
-  this->skip();
+  // this->skip();
   // Отправляем команду чтения ROM
-  this->write8(READ_ROM);
+  this->send_command_(READ_ROM);
 
   // Чтение 8 байт ROM-кода
   for (int i = 0; i < 8; i++) {
