@@ -23,7 +23,7 @@ class DS1990KeySensor : public PollingComponent, public text_sensor::TextSensor,
 
  protected:
   bool read_key_data_();
-  one_wire::OneWire *bus_;
+  one_wire::OneWireBus *bus_;
   uint64_t address_{0};
 };
 
