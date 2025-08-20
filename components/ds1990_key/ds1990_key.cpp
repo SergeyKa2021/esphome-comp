@@ -34,11 +34,6 @@ void DS1990KeySensor::update() {
 bool DS1990KeySensor::read_key_data_() {
   uint8_t rom_code[8];
   
-  if (!this->reset()) {
-    ESP_LOGD(TAG, "No devices found on 1-Wire bus");
-    return false;
-  }
-
   // Пропускаем выбор устройства
   // this->skip();
   // Отправляем команду чтения ROM
@@ -46,7 +41,7 @@ bool DS1990KeySensor::read_key_data_() {
 
   // Чтение 8 байт ROM-кода
   for (int i = 0; i < 8; i++) {
-    rom_code[i] = this->read8();
+    rom_code[i] = this->bus_->read8();
   }
 
   // Проверка CRC
