@@ -32,9 +32,9 @@ void DS1990KeySensor::update() {
   
   if (this->read_key_data_()) {
     char buffer[17];
-    snprintf(buffer, sizeof(buffer), "%02X%02X%02X%02X%02X%02X%02X%02X",
-         rom_code[7], rom_code[6], rom_code[5], rom_code[4],
-         rom_code[3], rom_code[2], rom_code[1], rom_code[0]);
+//    snprintf(buffer, sizeof(buffer), "%02X%02X%02X%02X%02X%02X%02X%02X",
+//        rom_code[7], rom_code[6], rom_code[5], rom_code[4],
+//        rom_code[3], rom_code[2], rom_code[1], rom_code[0]);
     this->publish_state(buffer);
     ESP_LOGD(TAG, "Key read successfully: %s", buffer);
   } else {
@@ -63,7 +63,7 @@ bool DS1990KeySensor::read_key_data_() {
   this->bus_->write8(READ_ROM);
 
   // Чтение 8 байт ROM-кода
-  public uint8_t rom_code[8];
+  uint8_t rom_code[8];
   for (int i = 0; i < 8; i++) {
     rom_code[i] = this->bus_->read8();
   }
