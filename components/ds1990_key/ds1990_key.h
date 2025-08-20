@@ -17,7 +17,7 @@ class DS1990KeySensor : public PollingComponent, public text_sensor::TextSensor,
   void setup() override;
   void dump_config() override;
   void update() override;
-  void set_bus(one_wire::OneWire *bus) { bus_ = bus; }
+  void set_bus(one_wire::OneWireBus *bus) { bus_ = bus; }
   
   float get_setup_priority() const override { return setup_priority::DATA; }
 
