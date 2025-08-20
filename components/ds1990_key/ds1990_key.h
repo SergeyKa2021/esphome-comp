@@ -12,9 +12,8 @@ static const uint8_t DS1990A_FAMILY_CODE = 0x01;
 static const uint8_t DS1990R_FAMILY_CODE = 0x81;
 static const uint8_t READ_ROM = 0x33;
 
-class DS1990KeySensor : public text_sensor::TextSensor, public PollingComponent, public one_wire::OneWireDevice {
+class DS1990KeySensor : public PollingComponent, public text_sensor::TextSensor, public one_wire::OneWireDevice {
  public:
-  
   void setup() override;
   void dump_config() override;
   void update() override;
@@ -25,7 +24,6 @@ class DS1990KeySensor : public text_sensor::TextSensor, public PollingComponent,
   bool read_key_data_();
   
   uint64_t address_{0};
-  uint32_t last_read_{0};
 };
 
 }  // namespace ds1990_key
