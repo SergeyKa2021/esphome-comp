@@ -10,14 +10,19 @@ ds1990_key_ns = cg.esphome_ns.namespace('ds1990_key')
 DS1990KeySensor = ds1990_key_ns.class_('DS1990KeySensor', text_sensor.TextSensor, cg.PollingComponent)
 
 CONFIG_SCHEMA = (
-    text_sensor.text_sensor_schema())
-    .extend({
-    cv.GenerateID(): cv.declare_id(DS1990KeySensor),
-    cv.Required(CONF_ADDRESS): cv.hex_uint64_t,
-    })
+    text_sensor.text_sensor_schema(
+    )
+    .extend(
+        {
+            cv.GenerateID(): cv.declare_id(DS1990KeySensor),
+            cv.Required(CONF_ADDRESS): cv.hex_uint64_t,
+        }
+    )
     .extend(one_wire.one_wire_device_schema())
     .extend(cv.polling_component_schema("5s"))
 )
+
+
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
