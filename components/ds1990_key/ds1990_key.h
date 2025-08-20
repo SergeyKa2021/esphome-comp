@@ -20,10 +20,11 @@ class DS1990KeySensor : public PollingComponent, public text_sensor::TextSensor,
   void set_bus(one_wire::OneWireBus *bus) { bus_ = bus; }
   
   float get_setup_priority() const override { return setup_priority::DATA; }
+  one_wire::OneWireBus *bus_;
 
  protected:
   bool read_key_data_();
-  one_wire::OneWireBus *bus_;
+//  one_wire::OneWireBus *bus_;
   uint64_t address_{0};
 };
 
